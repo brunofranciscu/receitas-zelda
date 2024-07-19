@@ -39,7 +39,7 @@ export default function Recipes() {
     
                 {item.map((recipe, index) => (
                     <SplideSlide key={index}> 
-                        <div className='shadow-2xl flex flex-col justify-center items-center bg-[url("./src/img/bg.webp")] bg-center bg-cover bg-no-repeat w-[430px] h-[570px] relative mx-auto overflow-hidden' onClick={() =>abrirReceita(index)}>
+                        <div className='shadow-2xl flex flex-col justify-center items-center bg-[url("./bg.webp")] bg-center bg-cover bg-no-repeat w-[430px] h-[570px] relative mx-auto overflow-hidden' onClick={() =>abrirReceita(index)}>
                             {!open[index] && <NewTag />}
                             <CurvedText className='text-[#615727] font-extrabold -translate-y-12 ' text={recipe.c[1].v}/>
                             <img src={`./src/img/recipes/${recipe.c[0].v.replace('jpg','webp')}`} className='block w-auto mx-auto -translate-y-12'/>
