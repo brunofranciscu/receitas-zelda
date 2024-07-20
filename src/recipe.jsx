@@ -12,7 +12,7 @@ export default function Recipes() {
 
     useEffect(() => {
         const fetchRecipes = async () =>{
-            const resolve = await fetch('https://docs.google.com/spreadsheets/d/1s6gJVPBRpGJ91JYxAM2L-VPmsx0ERA3MxQgMsPCAWjk/gviz/tq?')
+            const resolve = await fetch('https://docs.google.com/spreadsheets/d/1ST8iyo-AoLMQxL4dUTuW2cdw7ed-uhzo1GWqOKg2g60/gviz/tq?&range=A2:D200&sheet=Meals')
             const result = await resolve.text()
             const planilha = JSON.parse(result.substring(47).slice(0, -2));
             setItem(planilha.table.rows)
@@ -32,23 +32,25 @@ export default function Recipes() {
         setOpen(receitasAbertas)
         localStorage.setItem('openStates', JSON.stringify(receitasAbertas))
       }
-
+      
     return (
         <section>
-            <Splide options={{ type:'loop', rewind:true, perPage:5, perMove:1, pagination:false, focus:'center', breakpoints:{ 1600: { perPage:3 },1024:{ perPage:2, type:'slide', focus:1 }, 640:{ perPage:1, focus:'center' } } }}>
+            <Splide options={{ type:'loop', wheel:true, keyboard:true, rewind:true, perPage:5, perMove:1, pagination:false, focus:'center', breakpoints:{ 1600: { perPage:3 },1024:{ perPage:2, type:'slide', focus:0 }, 640:{ perPage:1, focus:0 } } }}>
     
                 {item.map((recipe, index) => (
                     <SplideSlide key={index}> 
                         <div className='shadow-2xl flex flex-col justify-center items-center bg-[url("./bg.webp")] bg-center bg-cover bg-no-repeat w-[430px] h-[570px] relative mx-auto overflow-hidden' onClick={() =>abrirReceita(index)}>
                             {!open[index] && <NewTag />}
-                            <CurvedText className='text-[#615727] font-extrabold -translate-y-12 ' text={recipe.c[1].v}/>
-                            <img src={`./src/img/recipes/${recipe.c[0].v.replace('jpg','webp')}`} className='block w-auto mx-auto -translate-y-12'/>
-                            <span className='block text-center mx-auto text-xs max-w-[300px] -translate-y-8'>{recipe.c[3].v}</span>
+                            <CurvedText className='text-[#615727] font-extrabold -translate-y-8 ' text={recipe.c[1].v}/>
+                            <img src={recipe.c[0].v} className='block w-auto mx-auto -translate-y-16 max-w-[180px]'/>
+                            <span className='block text-center mx-auto text-xs max-w-[300px] -translate-y-8'>{recipe.c[3] && recipe.c[3].v}</span>
     
                             <br /><br /><br />
-                            <div className='ing text-center'>
-                                {recipe.c[2].v.split(',').map((ing,i) => <p key={i}>{ing}</p>)}
-                            </div>
+                            <ul className='ing px-12'>
+                                {recipe.c[2] &&  recipe.c[2].v.split(',').map((iten,index) =>(
+                                    <p key={index}>{iten}</p>
+                                )) }
+                            </ul>
                         </div>
                     </SplideSlide>
                 ))}

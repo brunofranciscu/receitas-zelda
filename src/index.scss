@@ -22,7 +22,7 @@
   @apply [zoom:.7] md:[zoom:.8] xl:[zoom:1] translate-y-[35%];
   .splide__track{
 
-    @apply -translate-x-28;
+    @apply lg:-translate-x-28 translate-x-0;
     ul{
       @apply  relative;
       li{
